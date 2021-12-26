@@ -15,24 +15,8 @@ public class TransactionsSteps extends SpringIntegrationTest{
     public void a_transaction_that_is_not_stored_in_our_system() {
     }
 
-    @When("^I check the status from any channel$")
-    public void i_check_the_status_from_any_channel() {
-    }
-
-    @When("^I check the status from CLIENT or ATM channel$")
-    public void i_check_the_status_from_client_or_atm_channel() {
-    }
-
-    @When("^I check the status from CLIENT channel$")
-    public void i_check_the_status_from_client_channel() {
-    }
-
-    @When("^I check the status from ATM channel$")
-    public void i_check_the_status_from_atm_channel() {
-    }
-
-    @When("^I check the status from INTERNAL channel$")
-    public void i_check_the_status_from_internal_channel() {
+    @When("^I check the status from (.+) channel$")
+    public void i_check_the_status_from_x_channel(String channel) {
     }
 
     @And("^the transaction date is before today$")
