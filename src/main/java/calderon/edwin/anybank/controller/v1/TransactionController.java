@@ -38,7 +38,7 @@ public class TransactionController implements ICrudController<TransactionModel, 
 
     @Override
     public ResponseEntity<List<TransactionModel>> getResources() {
-        return null;
+        return ResponseEntity.ok(transactionService.getEntities());
     }
 
     @Override

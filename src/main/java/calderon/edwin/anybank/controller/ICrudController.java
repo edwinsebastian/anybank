@@ -10,7 +10,7 @@ import java.util.UUID;
 public interface ICrudController<T extends Model, R> {
 
     @PostMapping
-    ResponseEntity<R> createResource(@RequestBody R model);
+    ResponseEntity<R> createResource(@RequestBody R dto);
 
     @GetMapping("/{id}")
     ResponseEntity<T> getResource(@PathVariable UUID id);
