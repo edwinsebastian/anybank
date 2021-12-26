@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
@@ -14,12 +15,12 @@ import java.util.List;
 @Setter
 @Entity
 public class AccountModel extends Model{
-    private double balance;
+    private BigDecimal balance;
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountModel")
     private List<TransactionModel> transactions = Collections.emptyList();
 
     public AccountModel(){
-        this.balance = 0;
+        this.balance = BigDecimal.ZERO;
     }
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,8 +15,8 @@ import java.util.UUID;
 @Setter
 @Entity
 public class TransactionModel extends Model {
-    private double amount;
-    private double fee;
+    private BigDecimal amount;
+    private BigDecimal fee;
     private Date date;
     private String description;
     @JsonBackReference
@@ -23,7 +24,7 @@ public class TransactionModel extends Model {
     @JoinColumn(columnDefinition = "account_model_id")
     private AccountModel accountModel = new AccountModel();
 
-    public TransactionModel(UUID reference, AccountModel accountModel, Date date, double amount, double fee, String description){
+    public TransactionModel(UUID reference, AccountModel accountModel, Date date, BigDecimal amount, BigDecimal fee, String description){
         this.setId(reference);
         this.accountModel = accountModel;
         this.date = date;

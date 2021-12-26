@@ -18,17 +18,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/v1/transaction")
 public class TransactionController implements ICrudController<TransactionModel, TransactionDto> {
-    private final AccountService accountService;
     private final TransactionService transactionService;
 
     @Override
     public ResponseEntity<TransactionDto> createResource(TransactionDto transactionDto) {
-        TransactionModel transactionModel = transactionService.createEntity(TransactionDto.toTransactionModel(transactionDto, validateAccountIban(transactionDto.getAccountIban())));
-        return ResponseEntity.ok(new TransactionDto(transactionModel));
-    }
-
-    private AccountModel validateAccountIban(UUID accountIban) {
-        return accountService.getEntity(accountIban);
+        return ResponseEntity.ok(new TransactionDto(transactionService.createEntity(transactionDto)));
     }
 
     @Override
