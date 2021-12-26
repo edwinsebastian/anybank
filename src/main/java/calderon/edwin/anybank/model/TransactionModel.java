@@ -7,7 +7,7 @@ import lombok.Setter;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import java.sql.Date;
+import java.util.Date;
 import java.util.UUID;
 
 @Getter
@@ -23,22 +23,13 @@ public class TransactionModel extends Model {
     @JoinColumn(columnDefinition = "account_model_id")
     private AccountModel accountModel = new AccountModel();
 
-//{
-//    "reference":"12345A"
-//    "account_iban":"ES9820385778983000760236",
-//    "date":"2019-07-16T16:55:42.000Z",
-//    "amount":193.38,
-//    "fee":3.18,
-//    "description":"Restaurant payment"
-//}
-
-    public TransactionModel(UUID reference, AccountModel accountModel, double amount, double fee, Date date, String description){
+    public TransactionModel(UUID reference, AccountModel accountModel, Date date, double amount, double fee, String description){
         this.setId(reference);
+        this.accountModel = accountModel;
+        this.date = date;
         this.amount = amount;
         this.fee = fee;
-        this.date = date;
         this.description = description;
-        this.accountModel = accountModel;
     }
 
     public TransactionModel(){ }
