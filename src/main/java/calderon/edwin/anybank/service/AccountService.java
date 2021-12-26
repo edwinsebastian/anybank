@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -39,21 +40,21 @@ public class AccountService implements ICrudService<AccountModel>{
                 .collect(Collectors.toList());
     }
 
-    public void validateAccountBalance(double balance, double transactionTotal) {
-        if(balance - transactionTotal < 0){
+    public void validateAccountBalance(BigDecimal balance, BigDecimal transactionTotal) {
+        if(balance.subtract(transactionTotal.abs()).compareTo(BigDecimal.ZERO) < 0){
             throw new ZeroBalanceException("Not allowed. Account balance will be bellow 0");
         }
     }
 
-    public void creditAccount(AccountModel accountModel, double transactionTotal){
+    public void creditAccount(AccountModel accountModel, BigDecimal transactionTotal){
         logger.info("credit account");
-        accountModel.setBalance(accountModel.getBalance() + transactionTotal);
+        accountModel.setBalance(accountModel.getBalance().add(transactionTotal));
         this.updateEntity(accountModel);
     }
 
-    public void debitAccount(AccountModel accountModel, double transactionTotal){
+    public void debitAccount(AccountModel accountModel, BigDecimal transactionTotal){
         logger.info("debit account");
-        accountModel.setBalance(accountModel.getBalance() - transactionTotal);
+        accountModel.setBalance(accountModel.getBalance().subtract(transactionTotal.abs()));
         this.updateEntity(accountModel);
     }
 

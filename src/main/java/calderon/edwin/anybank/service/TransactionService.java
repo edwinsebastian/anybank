@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -36,9 +37,9 @@ public class TransactionService implements ICrudService<TransactionModel>{
     private TransactionModel validateTransaction(TransactionDto transactionDto) {
         AccountModel accountModel = accountService.getEntity(transactionDto.getAccountIban());
         TransactionModel transactionModel = TransactionDto.toTransactionModel(transactionDto, accountModel);
-        double transactionTotal = transactionDto.getAmount() - Math.abs(transactionDto.getFee());
+        BigDecimal transactionTotal = transactionDto.getAmount().subtract(transactionDto.getFee().abs());
 
-        if(transactionTotal >= 0){
+        if(transactionTotal.compareTo(BigDecimal.ZERO) >= 0){
             accountService.creditAccount(accountModel, transactionTotal);
         }else {
             accountService.validateAccountBalance(accountModel.getBalance(), transactionTotal);

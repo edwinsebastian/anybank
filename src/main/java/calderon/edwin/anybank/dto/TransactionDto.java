@@ -5,6 +5,7 @@ import calderon.edwin.anybank.model.TransactionModel;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
@@ -14,8 +15,8 @@ public class TransactionDto {
     private UUID reference;
     private UUID accountIban;
     private Date date = new Date();
-    private double amount;
-    private double fee = 0;
+    private BigDecimal amount;
+    private BigDecimal fee = BigDecimal.ZERO;
     private String description = "";
 
     public TransactionDto(TransactionModel transactionModel){
@@ -24,6 +25,7 @@ public class TransactionDto {
         this.date = transactionModel.getDate();
         this.amount = transactionModel.getAmount();
         this.fee = transactionModel.getFee();
+        this.description = transactionModel.getDescription();
     }
 
     public static TransactionModel toTransactionModel(TransactionDto transactionDTO, AccountModel accountModel){
