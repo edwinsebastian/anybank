@@ -15,8 +15,8 @@ public class TransactionDto {
     private UUID accountIban;
     private Date date = new Date();
     private double amount;
-    private double fee;
-    private String description;
+    private double fee = 0;
+    private String description = "";
 
     public TransactionDto(TransactionModel transactionModel){
         this.reference = transactionModel.getId();

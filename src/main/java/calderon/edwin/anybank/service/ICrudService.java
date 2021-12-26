@@ -13,7 +13,7 @@ public interface ICrudService<T extends Model> {
 
     List<T> getEntities();
 
-    UUID updateEntity(UUID id, T model);
+    UUID updateEntity(T model);
 
     UUID deleteEntity(UUID id);
 }
