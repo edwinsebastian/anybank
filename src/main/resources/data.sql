@@ -1,0 +1,11 @@
+insert into ACCOUNT_MODEL (id, balance) values ('2f919434ed72434abc5730341a18ee66', 197.45);
+insert into ACCOUNT_MODEL (id, balance) values ('98134c74bee24626aa52043ed92dde8c', 66.59);
+
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('9ce517509f1b4e6ea6f2bb62a4483e16', '2f919434ed72434abc5730341a18ee66', '2021-12-26T11:37:19Z', 93.16, 6.5, 'Spoon - Soup, Plastic');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('a64be17b8a564825a3e326d9a4568dc6', '2f919434ed72434abc5730341a18ee66', '2021-12-20T11:31:03Z', 90.54, 7.66, 'Cleaner - Comet');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('a95aafb72de0401985bff2cbbe4e13d9', '2f919434ed72434abc5730341a18ee66', '2022-01-07T00:32:17Z', 34.82, 9.23, 'Bag - Clear 7 Lb');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('ca3a430bd663483da873e339a4f070a7', '2f919434ed72434abc5730341a18ee66', '2021-02-22T11:01:16Z', 13.84, 2.51, 'Bread - Frozen Basket Variety');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('cb27766026f941e2b336f430a00d4f92', '98134c74bee24626aa52043ed92dde8c', '2020-12-25T09:48:32Z', 87.24, 2.93, 'Flounder - Fresh');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('d48e6e6101b74c659e45e062718a0720', '98134c74bee24626aa52043ed92dde8c', '2020-12-26T10:50:23Z', 45.43, 1.38, 'Sour Puss Sour Apple');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('ec7a0825256e4d6f9434bca813c45325', '98134c74bee24626aa52043ed92dde8c', '2021-01-05T21:48:42Z', 30.34, 5.09, 'Nestea - Ice Tea, Diet');
+insert into TRANSACTION_MODEL (id, account_model_id, date, amount, fee, description) values ('f95e629da68f4d65bc78348e27397659', '98134c74bee24626aa52043ed92dde8c', '2021-04-17T23:54:14Z', 89.1, 6.03, 'Mousse - Banana Chocolate');
