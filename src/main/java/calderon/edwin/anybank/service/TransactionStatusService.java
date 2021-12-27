@@ -9,7 +9,8 @@ import calderon.edwin.anybank.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -22,14 +23,16 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
         Optional<TransactionModel> opt = transactionRepository.findById(transactionStatusReqDto.getReference());
         TransactionStatusResDto transactionStatusResDto = null;
         if(opt.isEmpty()){
-            transactionStatusResDto = new TransactionStatusResDto(
+            return new TransactionStatusResDto(
                     transactionStatusReqDto.getReference(),
                     TransactionStatusEnum.INVALID
             );
         }
-        TransactionModel transactionModel = transactionRepository.findById(transactionStatusReqDto.getReference()).get();
+        TransactionModel transactionModel = opt.get();
 
-        int dateCompare = transactionModel.getDate().compareTo(new Date());
+        int dateCompare = transactionModel.getDate().toInstant()
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate().compareTo(LocalDate.now());
         ChannelEnum channel = transactionStatusReqDto.getChannel();
 
         if (dateCompare == 0) {
