@@ -4,7 +4,6 @@ import calderon.edwin.anybank.controller.ITransactionStatusController;
 import calderon.edwin.anybank.dto.TransactionStatusReqDto;
 import calderon.edwin.anybank.dto.TransactionStatusResDto;
 import calderon.edwin.anybank.service.ITransactionStatusService;
-import calderon.edwin.anybank.service.TransactionStatusService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/v1/transaction/status")
 public class TransactionStatusController implements ITransactionStatusController<TransactionStatusReqDto, TransactionStatusResDto> {
-//    private final TransactionStatusService transactionStatusService;
     private final ITransactionStatusService<TransactionStatusReqDto, TransactionStatusResDto> transactionStatusService;
 
     @Override

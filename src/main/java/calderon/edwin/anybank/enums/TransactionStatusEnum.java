@@ -1,7 +1,7 @@
 package calderon.edwin.anybank.enums;
 
 public enum TransactionStatusEnum {
-    ENDING,
+    PENDING,
     SETTLED,
     FUTURE,
     INVALID
