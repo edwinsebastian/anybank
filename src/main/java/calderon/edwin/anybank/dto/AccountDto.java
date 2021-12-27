@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Data
-public class AccountDto {
+public class AccountDto implements IDto<AccountModel> {
     private UUID accountIban;
     private BigDecimal balance;
 
@@ -18,7 +18,8 @@ public class AccountDto {
         this.balance = accountModel.getBalance();
     }
 
-    public static AccountModel toAccountModel(AccountDto accountDto){
-        return new AccountModel();
+    @Override
+    public AccountModel toModel(){
+        return new AccountModel(this.balance);
     }
 }

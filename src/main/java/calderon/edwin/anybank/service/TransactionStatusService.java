@@ -18,7 +18,7 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
     @Override
     public TransactionStatusResDto status(TransactionStatusReqDto transactionStatusReqDto) {
         Optional<TransactionModel> opt = transactionRepository.findById(transactionStatusReqDto.getReference());
-        TransactionStatusResDto transactionStatusResDto;
+        TransactionStatusResDto transactionStatusResDto = null;
         if(opt.isEmpty()){
             transactionStatusResDto = new TransactionStatusResDto(
                     transactionStatusReqDto.getReference(),

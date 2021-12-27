@@ -1,5 +1,6 @@
 package calderon.edwin.anybank.service;
 
+import calderon.edwin.anybank.dto.AccountDto;
 import calderon.edwin.anybank.dto.TransactionDto;
 import calderon.edwin.anybank.exception.ResourceNotFoundException;
 import calderon.edwin.anybank.model.AccountModel;
@@ -18,17 +19,14 @@ import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
 @Service
-public class TransactionService implements ICrudService<TransactionModel>{
+public class TransactionService implements ICrudService<TransactionModel, TransactionDto>{
     private final TransactionRepository transactionRepository;
-    private final AccountService accountService;
+    private final ICrudService<AccountModel, AccountDto> accountService;
+    private final IAccountBalanceService accountBalanceService;
 
     Logger logger = LoggerFactory.getLogger(TransactionService.class);
 
     @Override
-    public TransactionModel createEntity(TransactionModel transactionModel) {
-        return null;
-    }
-
     public TransactionModel createEntity(TransactionDto transactionDto) {
         TransactionModel transactionModel = validateTransaction(transactionDto);
         return transactionRepository.save(transactionModel);
@@ -36,14 +34,13 @@ public class TransactionService implements ICrudService<TransactionModel>{
 
     private TransactionModel validateTransaction(TransactionDto transactionDto) {
         AccountModel accountModel = accountService.getEntity(transactionDto.getAccountIban());
-        TransactionModel transactionModel = TransactionDto.toTransactionModel(transactionDto, accountModel);
+        TransactionModel transactionModel = transactionDto.toModel(transactionDto, accountModel);
         BigDecimal transactionTotal = transactionDto.getAmount().subtract(transactionDto.getFee().abs());
 
         if(transactionTotal.compareTo(BigDecimal.ZERO) >= 0){
-            accountService.creditAccount(accountModel, transactionTotal);
+            accountBalanceService.creditAccount(accountModel, transactionTotal);
         }else {
-            accountService.validateAccountBalance(accountModel.getBalance(), transactionTotal);
-            accountService.debitAccount(accountModel, transactionTotal);
+            accountBalanceService.debitAccount(accountModel, transactionTotal);
         }
 
         return transactionModel;

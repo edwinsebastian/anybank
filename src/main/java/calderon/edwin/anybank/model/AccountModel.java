@@ -23,4 +23,7 @@ public class AccountModel extends Model{
     public AccountModel(){
         this.balance = BigDecimal.ZERO;
     }
+    public AccountModel(BigDecimal balance){
+        this.balance = balance;
+    }
 }
