@@ -19,7 +19,7 @@ import java.util.stream.StreamSupport;
 
 @RequiredArgsConstructor
 @Service
-public class TransactionService implements ICrudService<TransactionModel, TransactionDto>{
+public class TransactionService implements ICrudEntitySearcherService<TransactionModel, TransactionDto>{
     private final TransactionRepository transactionRepository;
     private final ICrudService<AccountModel, AccountDto> accountService;
     private final IAccountBalanceService accountBalanceService;
@@ -67,5 +67,10 @@ public class TransactionService implements ICrudService<TransactionModel, Transa
     @Override
     public UUID deleteEntity(UUID id) {
         return null;
+    }
+
+    @Override
+    public List<TransactionModel> getEntitiesByFkey(UUID id) {
+        return transactionRepository.findAllByAccountModel_Id(id);
     }
 }
