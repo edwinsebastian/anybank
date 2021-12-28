@@ -9,6 +9,7 @@ import calderon.edwin.anybank.repository.TransactionRepository;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -70,7 +71,10 @@ public class TransactionService implements ICrudEntitySearcherService<Transactio
     }
 
     @Override
-    public List<TransactionModel> getEntitiesByFkey(UUID id) {
-        return transactionRepository.findAllByAccountModel_Id(id);
+    public List<TransactionModel> getEntitiesByFkey(UUID id,  String sortBy, String order) {
+        Sort sort = Sort.by(sortBy);
+        sort = order.equalsIgnoreCase("asc") ? sort.ascending(): sort.descending();
+
+        return transactionRepository.findAllByAccountModel_Id(id, sort);
     }
 }
