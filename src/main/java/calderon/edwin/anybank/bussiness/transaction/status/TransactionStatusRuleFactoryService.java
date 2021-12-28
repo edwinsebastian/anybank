@@ -10,7 +10,7 @@ import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
-public class TransactionRuleFactoryService {
+public class TransactionStatusRuleFactoryService {
     private final List<ITransactionStatusRule> transactionStatusRules;
 
     private static final Map<String, ITransactionStatusRule> transactionStatusRuleCache = new HashMap<>();
@@ -24,7 +24,7 @@ public class TransactionRuleFactoryService {
         }
     }
 
-    public static ITransactionStatusRule getService(String type) {
+    public static ITransactionStatusRule getRuleService(String type) {
         ITransactionStatusRule service = transactionStatusRuleCache.get(type);
         if(service == null) throw new RuntimeException("Unknown service type: " + type);
 

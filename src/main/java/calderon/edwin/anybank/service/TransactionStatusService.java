@@ -1,6 +1,6 @@
 package calderon.edwin.anybank.service;
 
-import calderon.edwin.anybank.bussiness.transaction.status.TransactionRuleFactoryService;
+import calderon.edwin.anybank.bussiness.transaction.status.TransactionStatusRuleFactoryService;
 import calderon.edwin.anybank.dto.TransactionStatusReqDto;
 import calderon.edwin.anybank.dto.TransactionStatusResDto;
 import calderon.edwin.anybank.enums.ChannelEnum;
@@ -32,7 +32,7 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
 
         String transactionStatusRule = this.getRuleTypeByDateAndChannel(transactionModel, transactionStatusReqDto.getChannel());
 
-        return TransactionRuleFactoryService.getService(transactionStatusRule).checkTransactionStatus(transactionModel);
+        return TransactionStatusRuleFactoryService.getRuleService(transactionStatusRule).checkTransactionStatus(transactionModel);
     }
 
     private String getRuleTypeByDateAndChannel(TransactionModel transactionModel, ChannelEnum channel){
@@ -42,9 +42,9 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
 
         String transactionStatusRule;
 
-        if(dateCompare < 0) transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "before", channel.toString());
-        else if(dateCompare == 0) transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "current", channel.toString());
-        else transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "future", channel.toString());
+        if(dateCompare < 0) transactionStatusRule = String.format(TransactionStatusRuleFactoryService.ruleFormat, "before", channel.toString());
+        else if(dateCompare == 0) transactionStatusRule = String.format(TransactionStatusRuleFactoryService.ruleFormat, "current", channel.toString());
+        else transactionStatusRule = String.format(TransactionStatusRuleFactoryService.ruleFormat, "future", channel.toString());
 
         return transactionStatusRule;
     }
