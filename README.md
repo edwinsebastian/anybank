@@ -1,3 +1,8 @@
+#assumptions
+
+fee if not present is 0
+
+client if not present default is client
 # Getting Started
 
 ### Reference Documentation

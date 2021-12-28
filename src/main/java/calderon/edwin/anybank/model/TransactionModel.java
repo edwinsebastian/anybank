@@ -2,6 +2,7 @@ package calderon.edwin.anybank.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.Entity;
@@ -9,10 +10,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
 @Setter
+@NoArgsConstructor
 @Entity
 public class TransactionModel extends Model {
     private BigDecimal amount;
@@ -25,13 +28,11 @@ public class TransactionModel extends Model {
     private AccountModel accountModel = new AccountModel();
 
     public TransactionModel(UUID reference, AccountModel accountModel, Date date, BigDecimal amount, BigDecimal fee, String description){
-        this.setId(reference);
+        this.setId(Objects.requireNonNullElseGet(reference, UUID::randomUUID));
         this.accountModel = accountModel;
         this.date = date;
         this.amount = amount;
         this.fee = fee;
         this.description = description;
     }
-
-    public TransactionModel(){ }
 }

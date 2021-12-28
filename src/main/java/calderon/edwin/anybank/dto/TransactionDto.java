@@ -11,7 +11,7 @@ import java.util.UUID;
 
 @RequiredArgsConstructor
 @Data
-public class TransactionDto {
+public class TransactionDto implements IDto<TransactionModel> {
     private UUID reference;
     private UUID accountIban;
     private Date date = new Date();
@@ -28,7 +28,12 @@ public class TransactionDto {
         this.description = transactionModel.getDescription();
     }
 
-    public static TransactionModel toTransactionModel(TransactionDto transactionDTO, AccountModel accountModel){
+    @Override
+    public TransactionModel toModel() {
+        return null;
+    }
+
+    public TransactionModel toModel(TransactionDto transactionDTO, AccountModel accountModel){
         return new TransactionModel(
                 transactionDTO.getReference(),
                 accountModel,

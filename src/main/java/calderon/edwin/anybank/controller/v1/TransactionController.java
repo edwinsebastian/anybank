@@ -2,10 +2,8 @@ package calderon.edwin.anybank.controller.v1;
 
 import calderon.edwin.anybank.controller.ICrudController;
 import calderon.edwin.anybank.dto.TransactionDto;
-import calderon.edwin.anybank.model.AccountModel;
 import calderon.edwin.anybank.model.TransactionModel;
-import calderon.edwin.anybank.service.AccountService;
-import calderon.edwin.anybank.service.TransactionService;
+import calderon.edwin.anybank.service.ICrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,7 +16,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/v1/transaction")
 public class TransactionController implements ICrudController<TransactionModel, TransactionDto> {
-    private final TransactionService transactionService;
+    private final ICrudService<TransactionModel, TransactionDto> transactionService;
 
     @Override
     public ResponseEntity<TransactionDto> createResource(TransactionDto transactionDto) {

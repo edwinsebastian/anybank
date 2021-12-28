@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -21,6 +22,10 @@ public class AccountModel extends Model{
     private List<TransactionModel> transactions = Collections.emptyList();
 
     public AccountModel(){
-        this.balance = BigDecimal.ZERO;
+        this(BigDecimal.ZERO);
+    }
+    public AccountModel(BigDecimal balance){
+        this.setId(UUID.randomUUID());
+        this.balance = balance;
     }
 }

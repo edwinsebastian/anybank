@@ -3,7 +3,7 @@ package calderon.edwin.anybank.controller.v1;
 import calderon.edwin.anybank.controller.ICrudController;
 import calderon.edwin.anybank.dto.AccountDto;
 import calderon.edwin.anybank.model.AccountModel;
-import calderon.edwin.anybank.service.AccountService;
+import calderon.edwin.anybank.service.ICrudService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -16,11 +16,11 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/v1/account")
 public class AccountController implements ICrudController<AccountModel, AccountDto> {
-    private final AccountService accountService;
+    private final ICrudService<AccountModel, AccountDto> accountService;
 
     @Override
     public ResponseEntity<AccountDto> createResource(AccountDto accountDto) {
-        AccountModel accountModel = accountService.createEntity(AccountDto.toAccountModel(accountDto));
+        AccountModel accountModel = accountService.createEntity(accountDto);
         return ResponseEntity.ok(new AccountDto(accountModel));
     }
 
