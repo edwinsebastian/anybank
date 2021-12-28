@@ -3,6 +3,7 @@ package calderon.edwin.anybank.service;
 import calderon.edwin.anybank.bussiness.transaction.status.TransactionRuleFactoryService;
 import calderon.edwin.anybank.dto.TransactionStatusReqDto;
 import calderon.edwin.anybank.dto.TransactionStatusResDto;
+import calderon.edwin.anybank.enums.ChannelEnum;
 import calderon.edwin.anybank.enums.TransactionStatusEnum;
 import calderon.edwin.anybank.model.TransactionModel;
 import calderon.edwin.anybank.repository.TransactionRepository;
@@ -21,7 +22,6 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
     @Override
     public TransactionStatusResDto status(TransactionStatusReqDto transactionStatusReqDto) {
         Optional<TransactionModel> opt = transactionRepository.findById(transactionStatusReqDto.getReference());
-        TransactionStatusResDto transactionStatusResDto = null;
         if(opt.isEmpty()){
             return new TransactionStatusResDto(
                     transactionStatusReqDto.getReference(),
@@ -29,15 +29,23 @@ public class TransactionStatusService implements ITransactionStatusService<Trans
             );
         }
         TransactionModel transactionModel = opt.get();
+
+        String transactionStatusRule = this.getRuleTypeByDateAndChannel(transactionModel, transactionStatusReqDto.getChannel());
+
+        return TransactionRuleFactoryService.getService(transactionStatusRule).checkTransactionStatus(transactionModel);
+    }
+
+    private String getRuleTypeByDateAndChannel(TransactionModel transactionModel, ChannelEnum channel){
         int dateCompare = transactionModel.getDate().toInstant()
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate().compareTo(LocalDate.now());
 
-        String transactionStatusRule = "%sDateAnd%sChannelRule";
-        if(dateCompare < 0) transactionStatusRule = String.format(transactionStatusRule, "before", transactionStatusReqDto.getChannel().toString());
-        else if(dateCompare == 0) transactionStatusRule = String.format(transactionStatusRule, "current", transactionStatusReqDto.getChannel().toString());
-        else if(dateCompare > 0) transactionStatusRule = String.format(transactionStatusRule, "future", transactionStatusReqDto.getChannel().toString());
+        String transactionStatusRule;
 
-        return TransactionRuleFactoryService.getService(transactionStatusRule).checkTransactionStatus(transactionModel);
+        if(dateCompare < 0) transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "before", channel.toString());
+        else if(dateCompare == 0) transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "current", channel.toString());
+        else transactionStatusRule = String.format(TransactionRuleFactoryService.ruleFormat, "future", channel.toString());
+
+        return transactionStatusRule;
     }
 }

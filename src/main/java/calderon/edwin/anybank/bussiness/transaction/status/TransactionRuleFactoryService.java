@@ -15,6 +15,8 @@ public class TransactionRuleFactoryService {
 
     private static final Map<String, ITransactionStatusRule> transactionStatusRuleCache = new HashMap<>();
 
+    public static final String ruleFormat = "%sDateAnd%sChannelRule";
+
     @PostConstruct
     public void initMyServiceCache() {
         for(ITransactionStatusRule service : transactionStatusRules) {
@@ -25,6 +27,7 @@ public class TransactionRuleFactoryService {
     public static ITransactionStatusRule getService(String type) {
         ITransactionStatusRule service = transactionStatusRuleCache.get(type);
         if(service == null) throw new RuntimeException("Unknown service type: " + type);
+
         return service;
     }
 }
