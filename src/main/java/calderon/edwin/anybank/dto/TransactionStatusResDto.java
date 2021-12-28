@@ -2,6 +2,7 @@ package calderon.edwin.anybank.dto;
 
 import calderon.edwin.anybank.enums.TransactionStatusEnum;
 import calderon.edwin.anybank.model.TransactionModel;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TransactionStatusResDto implements IDto<TransactionModel> {
     private UUID reference;
     private TransactionStatusEnum status;
