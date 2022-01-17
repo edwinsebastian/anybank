@@ -1,8 +1,8 @@
 # Getting Started
 
 ## Create transaction
-###POST /v1/transaction
-####request
+### POST /v1/transaction
+#### request
 ```
 {
     "accountIban": "2f919434-ed72-434a-bc57-30341a18ee66",
@@ -16,7 +16,7 @@
 >
 >fee: if it is not sent by default it is 0
 
-####response
+#### response
 ```
 {
     "reference": "12b97411-6252-4387-b6d8-2899e4f318a6",
@@ -28,12 +28,12 @@
 }
 ```
 ## Search transactions
-###GET 
+### GET 
 >/v1/transaction
 > 
 >all transactions
 
-####response
+#### response
 ```
 [
     {
@@ -67,12 +67,12 @@
 ]
 ```
 
-###GET 
+### GET 
 >/v1/transaction/12b97411-6252-4387-b6d8-2899e4f318a6
 >
 >single transaction
 
-####response
+#### response
 ```
 {
     "id": "12b97411-6252-4387-b6d8-2899e4f318a6",
@@ -83,7 +83,7 @@
 }
 ```
 
-###GET transactions by iban 
+### GET transactions by iban 
 >/v1/transaction/iban/2f919434-ed72-434a-bc57-30341a18ee66?sortBy=amount&order=asc
 
 >#### Optionals request params
@@ -91,7 +91,7 @@
 >sortBy: By default is date
 > 
 >order: By default is desc
-####response
+#### response
 ```
 [
     {
@@ -132,9 +132,9 @@
 ]
 ```
 
-###GET transactions by iban (Alternative)
+### GET transactions by iban (Alternative)
 >/v1/account/2f919434-ed72-434a-bc57-30341a18ee66
-####response
+#### response
 ```
 {
     "id": "2f919434-ed72-434a-bc57-30341a18ee66",
@@ -171,9 +171,9 @@
     ]
 }
 ```
-#Transaction status
-###POST /v1/transaction/status
-####request
+# Transaction status
+### POST /v1/transaction/status
+#### request
 ```
 {
     "reference": "9ce51750-9f1b-4e6e-a6f2-bb62a4483e16",
@@ -182,7 +182,7 @@
 ```
 >channel: if it is not sent by default is CLIENT
 
-####response
+#### response
 ```
 {
     "reference": "9ce51750-9f1b-4e6e-a6f2-bb62a4483e16",
